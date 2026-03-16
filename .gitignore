@@ -27,3 +27,4 @@ qwiklabs/qwiklabs.zip
 terraform-modules/colab-deployment-create-files/notebooks/*
 terraform-modules/colab-deployment-create-files/notebooks_base64/*
 temp.txt
+.antigravity/schema.json
