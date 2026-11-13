@@ -40,10 +40,6 @@ variable "dataflow_staging_bucket" {}
 variable "dataflow_service_account" {}
 
 
-data "google_client_config" "current" {
-}
-
-
 # Define the list of notebook files to be created
 locals {
   chocolate_ai_notebooks = [ 

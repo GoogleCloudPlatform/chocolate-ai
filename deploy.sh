@@ -148,15 +148,6 @@ then
     gsutil cp tf-output.json "gs://${terraform_output_bucket}/terraform/output/"
   fi
 
-  # Copy TF State file - Check to see if the user did not specify an output bucket
-  if [[ $terraform_output_bucket == *"Error"* ]]; 
-  then
-    echo "No terraform_output_bucket specified.  Not copying Terraform State file"
-  else
-    echo "Copying terraform.tfstate: gsutil cp terraform.tfstate gs://${terraform_output_bucket}/terraform/state/"
-    gsutil cp terraform.tfstate "gs://${terraform_output_bucket}/terraform/state/"
-  fi
-
   # # Copy the EMPTY org policies over the existing one
   # # Run Terraform apply again to then revert the org policies back to "inherit from parent"
   # if [ -f "../terraform-modules/org-policies/tf-org-policies-original.txt" ]; then

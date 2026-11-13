@@ -57,9 +57,6 @@ variable "chocolate_ai_bucket" {}
 variable "chocolate_ai_code_bucket" {}
 variable "dataflow_staging_bucket" {}
 
-data "google_client_config" "current" {
-}
-
 ####################################################################################
 # Bucket for all data (BigQuery, Spark, etc...)
 # This is your "Data Lake" bucket
@@ -313,7 +310,7 @@ resource "null_resource" "colab_runtime_template" {
     command = <<EOF
   curl -X POST \
   https://${var.colab_enterprise_region}-aiplatform.googleapis.com/ui/projects/${var.project_id}/locations/${var.colab_enterprise_region}/notebookRuntimeTemplates?notebookRuntimeTemplateId=colab-enterprise-template \
-  --header "Authorization: Bearer ${data.google_client_config.current.access_token}" \
+  --header "Authorization: Bearer $(gcloud auth print-access-token --impersonate-service-account=${var.terraform_service_account})" \
   --header "Content-Type: application/json" \
   --data '{
         displayName: "colab-enterprise-template", 
@@ -345,7 +342,7 @@ resource "null_resource" "colab_runtime" {
     command = <<EOF
   curl -X POST \
   https://${var.colab_enterprise_region}-aiplatform.googleapis.com/ui/projects/${var.project_id}/locations/${var.colab_enterprise_region}/notebookRuntimes:assign \
-  --header "Authorization: Bearer ${data.google_client_config.current.access_token}" \
+  --header "Authorization: Bearer $(gcloud auth print-access-token --impersonate-service-account=${var.terraform_service_account})" \
   --header "Content-Type: application/json" \
   --data '{
       notebookRuntimeTemplate: "projects/${var.project_number}/locations/${var.colab_enterprise_region}/notebookRuntimeTemplates/colab-enterprise-template",

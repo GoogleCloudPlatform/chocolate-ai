@@ -294,6 +294,7 @@ module "deploy-notebooks-module-deploy" {
   gcp_account_name                    = var.gcp_account_name
   dataflow_staging_bucket             = local.dataflow_staging_bucket
   dataflow_service_account            = module.resources.dataflow_service_account
+  terraform_service_account           = module.service-account.deployment_service_account
 
   depends_on = [
     module.project,
